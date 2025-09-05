@@ -3,3 +3,5 @@ uvicorn
 requests
 pytest
 httpx
+flake8
+mypy
