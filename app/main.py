@@ -1,5 +1,5 @@
 from fastapi import FastAPI, HTTPException
-import app.cart as ct
+from app import cart as ct
 
 app = FastAPI()
 cart = ct.Cart()
