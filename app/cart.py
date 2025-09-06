@@ -1,0 +1,31 @@
+from app import product
+import requests
+
+URL = "https://world.openfoodfacts.net/api/v2/product/{barcode}?fields=code,product_name,nutriscore_data,nutriments"
+
+class Cart:
+    def __init__(self):
+        self._products = []
+
+    @property
+    def products(self):
+        return self._products
+
+    def add_product(self, barcode: str):
+        response = requests.get(URL.format(barcode=barcode))
+        
+        if response.status_code == 200:
+            product_data = response.json().get('product', {})
+            
+            item = product.Product(
+                code=product_data.get('code'),
+                name=product_data.get('product_name'),
+                nutriscore=product_data.get('nutriscore_data'),
+                nutriments=product_data.get('nutriments')
+            )
+            
+            self._products.append(item)
+
+            return item
+        
+        return None

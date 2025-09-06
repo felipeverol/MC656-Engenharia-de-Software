@@ -1,12 +1,12 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
+from app import cart as ct
 
-# 1. Cria a instância da aplicação que o teste precisa de importar
 app = FastAPI()
+cart = ct.Cart()
 
-# 2. Cria a rota raiz que o teste vai chamar
-@app.get("/")
-def read_root():
-    """
-    Endpoint raiz para verificar se a API está online.
-    """
-    return {"status": "ok"}
+@app.get("/add/{barcode}")
+def add_to_cart(barcode: str):
+    product = cart.add_product(barcode)
+    if product:
+        return {"msg": f"{product.code} added!", "cart": [p.name for p in cart.products]} 
+    raise HTTPException(status_code=404, detail="Product not found")
