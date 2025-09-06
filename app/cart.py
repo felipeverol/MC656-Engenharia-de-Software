@@ -6,6 +6,7 @@ URL = "https://world.openfoodfacts.net/api/v2/product/{barcode}?fields=code,prod
 class Cart:
     def __init__(self):
         self._products = []
+        self._total_items: int
 
     @property
     def products(self):
@@ -29,3 +30,19 @@ class Cart:
             return item
         
         return None
+    
+    def list_items(self):
+        return {
+            "total_items": len(self._products),
+            "products": [
+                {
+                    "code": p.code,
+                    "name": p.name,
+                    "nutriscore": p.nutriscore,
+                    "nutriments": p.nutriments
+                }
+                for p in self._products
+            ]
+        }
+    
+
