@@ -27,5 +27,7 @@ def remove_from_cart(barcode: str):
 
 @app.get("/delete/cart") 
 def delete_cart():
-    cart.delete_cart()
-    return {"msg": "Cart deleted!"}
+    sucess = cart.delete_cart()
+    if sucess:
+        return {"msg": "Cart deleted!"}
+    raise HTTPException(status_code=404, detail="Cart not found")
