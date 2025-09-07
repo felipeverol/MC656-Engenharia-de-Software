@@ -1,8 +1,8 @@
 from fastapi import FastAPI, HTTPException
-from app import cart as ct
+from .cart import Cart as ct
 
 app = FastAPI()
-cart = ct.Cart()
+cart = ct()
 
 @app.get("/add/{barcode}")
 def add_to_cart(barcode: str):

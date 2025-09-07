@@ -1,4 +1,4 @@
-from app import product
+from .product import Product
 import requests
 
 URL = "https://world.openfoodfacts.net/api/v2/product/{barcode}?fields=code,product_name,nutriscore_data,nutriments"
@@ -18,7 +18,7 @@ class Cart:
         if response.status_code == 200:
             product_data = response.json().get('product', {})
             
-            item = product.Product(
+            item = Product(
                 code=product_data.get('code'),
                 name=product_data.get('product_name'),
                 nutriscore=product_data.get('nutriscore_data'),
