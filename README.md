@@ -16,7 +16,7 @@ Siga os passos abaixo para configurar e executar a aplicação na sua máquina.
 - Um gestor de pacotes como o pip
 1. Clonar o Repositório
 ```
-git clone [https://github.com/felipeverol/MC656-Engenharia-de-Software.git](https://github.com/felipeverol/MC656-Engenharia-de-Software.git)
+git clone https://github.com/felipeverol/MC656-Engenharia-de-Software.git
 cd MC656-Engenharia-de-Software
 ```
 
