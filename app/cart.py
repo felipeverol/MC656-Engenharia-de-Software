@@ -1,4 +1,4 @@
-from app import product
+from .product import Product
 import requests
 
 URL = "https://world.openfoodfacts.net/api/v2/product/{barcode}?fields=code,product_name,nutriscore_data,nutriments"
@@ -6,6 +6,7 @@ URL = "https://world.openfoodfacts.net/api/v2/product/{barcode}?fields=code,prod
 class Cart:
     def __init__(self):
         self._products = []
+        self._total_items: int
 
     @property
     def products(self):
@@ -17,7 +18,7 @@ class Cart:
         if response.status_code == 200:
             product_data = response.json().get('product', {})
             
-            item = product.Product(
+            item = Product(
                 code=product_data.get('code'),
                 name=product_data.get('product_name'),
                 nutriscore=product_data.get('nutriscore_data'),
@@ -29,3 +30,31 @@ class Cart:
             return item
         
         return None
+    
+    def list_items(self):
+        return {
+            "total_items": len(self._products),
+            "products": [
+                {
+                    "code": p.code,
+                    "name": p.name,
+                    "nutriscore": p.nutriscore,
+                    "nutriments": p.nutriments
+                }
+                for p in self._products
+            ]
+        }
+
+    def remove_item(self, barcode: str):
+        for i, product in enumerate(self._products):
+            if product.code == barcode:
+                del self._products[i]
+                return True
+        return False
+
+    def delete_cart(self):
+        self._products = []
+        self._total_items = 0
+        return True
+    
+
