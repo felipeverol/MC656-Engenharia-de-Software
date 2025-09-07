@@ -67,4 +67,4 @@ Testes Unitários: Executa os testes de lógica da aplicação.
 pytest
 ```
 
-Para executar estas verificações localmente, basta correr os comandos acima no seu terminal.
+Para executar estas verificações localmente, basta rodar os comandos acima no seu terminal.
