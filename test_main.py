@@ -4,7 +4,21 @@ from app.main import app
 
 client = TestClient(app)
 
-def test_add_product():
+def test_add_product_not_found():
+    """
+    Testa o endpoint de adicionar um produto que não existe ao carrinho.
+    Verifica o status code e o JSON retornado.
+    """
+    barcode_to_test = "93017624010701"
+    response = client.get(f"/add/{barcode_to_test}")
+
+    assert response.status_code == 404, f"Erro: Status Code foi {response.status_code}"
+
+    data = response.json()
+    assert "detail" in data
+    assert data["detail"] == "Product not found"
+
+def test_add_product_sucessfuly():
     """
     Testa o endpoint de adicionar um produto ao carrinho.
     Verifica o status code, o JSON retornado e o estado do carrinho.
