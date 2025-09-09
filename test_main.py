@@ -23,7 +23,7 @@ def test_add_product_not_found():
     Testa o endpoint de adicionar um produto ao carrinho com um código de barras inválido.
     Verifica se o status code é 404 e a mensagem de erro correta.
     """
-    invalid_barcode = "0000000000000"
+    invalid_barcode = "93017624010701"
     response = client.get(f"/add/{invalid_barcode}")
 
     assert response.status_code == 404, f"Erro: Status Code foi {response.status_code}"
