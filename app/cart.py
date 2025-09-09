@@ -43,3 +43,15 @@ class Cart:
                 for p in self._products
             ]
         }
+    
+    def remove_item(self, barcode: str):
+        for i, product in enumerate(self._products):
+            if product.code == barcode:
+                del self._products[i]
+                return True
+        return False
+
+    def delete_cart(self):
+        self._products = []
+        self._total_items = 0
+        return True
