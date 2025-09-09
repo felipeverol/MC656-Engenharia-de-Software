@@ -1,4 +1,3 @@
 fastapi
 uvicorn
-types-requests
 requests
