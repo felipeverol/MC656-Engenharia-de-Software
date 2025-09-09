@@ -5,3 +5,4 @@ pytest
 httpx
 flake8
 mypy
+types-requests

@@ -21,7 +21,6 @@ jobs:
       - name: Instalar Dependências
         run: |
           python -m pip install --upgrade pip
-          python3 -m pip install types-requests
           pip install -r requirements.txt
       
       - name: Passando o Flake8
