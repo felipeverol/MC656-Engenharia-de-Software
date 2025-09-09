@@ -29,3 +29,17 @@ class Cart:
             return item
         
         return None
+
+    def list_items(self):
+        return {
+            "total_items": len(self._products),
+            "products": [
+                {
+                    "code": p.code,
+                    "name": p.name,
+                    "nutriscore": p.nutriscore,
+                    "nutriments": p.nutriments
+                }
+                for p in self._products
+            ]
+        }
