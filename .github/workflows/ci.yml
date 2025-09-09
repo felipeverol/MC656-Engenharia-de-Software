@@ -29,7 +29,6 @@ jobs:
       
       - name: Passando o MyPy para erros de tipo
         run: |
-          mypy --install-types
           mypy app
 
       - name: Rodar Testes com Pytest
