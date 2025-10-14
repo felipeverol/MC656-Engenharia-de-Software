@@ -12,8 +12,6 @@ Este documento apresenta os resultados do processo de elicitação de requisitos
 
 **Data da Execução:** 09/10/2025
 
-**Participantes:** Felipe Verol, Gabriel dos Santos, Pedro Ascef, Vinícius Borges, Theo Maceres
-
 ### Descrição do Processo
 Para obter uma compreensão empática e profunda do contexto de uso do nosso aplicativo, desenvolvemos um mapa da jornada do usuário. Esta técnica nos permitiu visualizar a experiência de uma pessoa tentando realizar compras mais saudáveis no supermercado, identificando suas ações, sentimentos, frustrações (pontos de dor) e as oportunidades onde nossa solução pode intervir positivamente.
 
@@ -28,7 +26,7 @@ Para obter uma compreensão empática e profunda do contexto de uso do nosso apl
 Rogers vai ao supermercado para fazer as compras da semana com a meta de escolher produtos com baixo teor de açúcar, sódio e gorduras processadas.
 
 ### Evidência (Mapa da Jornada)
-O mapa visual abaixo ilustra as etapas da jornada da Mariana, desde a escolha de um produto na prateleira até a análise final de seu carrinho. As oportunidades identificadas neste mapa foram a principal fonte de inspiração para a criação dos épicos e histórias de usuário.
+O mapa visual abaixo ilustra as etapas da jornada do Rogers, desde a escolha de um produto na prateleira até a análise final de seu carrinho. As oportunidades identificadas neste mapa foram a principal fonte de inspiração para a criação dos épicos e histórias de usuário.
 
 ![Mapa da Jornada do Usuário](elicitacoes/user_journey.jpeg)
 
@@ -37,7 +35,6 @@ O mapa visual abaixo ilustra as etapas da jornada da Mariana, desde a escolha de
 ## Técnica 2: Brainstorming
 
 **Data da Execução:** 09/10/2025
-**Participantes:** Felipe Verol, Gabriel dos Santos, Pedro Ascef, Vinícius Borges, Theo Maceres
 
 ### Descrição do Processo
 Com base nos insights e oportunidades levantados na Jornada do Usuário, a equipe realizou uma sessão de brainstorming estruturado utilizando a ferramenta Miro. A sessão teve como pergunta central: "Como podemos transformar as dores do Rogers em funcionalidades que gerem confiança e facilitem decisões saudáveis?". As ideias foram geradas livremente e, em um segundo momento, agrupadas em categorias temáticas, que serviram como base para a estruturação dos épicos do projeto.
