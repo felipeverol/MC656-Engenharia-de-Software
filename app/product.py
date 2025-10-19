@@ -1,8 +1,7 @@
 class Product:
-    def __init__(self, code, name, nutriscore, nutriments):
+    def __init__(self, code, name, nutriments):
         self._code = code
         self._name = name
-        self._nutriscore = nutriscore
         self._nutriments = nutriments
 
     @property
@@ -12,10 +11,6 @@ class Product:
     @property
     def name(self):
         return self._name
-    
-    @property
-    def nutriscore(self):
-        return self._nutriscore
     
     @property
     def nutriments(self):
