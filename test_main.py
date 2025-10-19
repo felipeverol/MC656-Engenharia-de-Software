@@ -58,7 +58,6 @@ def test_get_cart_with_items(mock_get):
         "product": {
             "code": "737628064502",
             "product_name": "Coca-Cola",
-            "nutriscore_data": {"grade": "e"},
             "nutriments": {"energy-kcal_100g": 42}
         }
     }

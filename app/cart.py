@@ -1,7 +1,7 @@
 from app import product
 import requests
 
-URL = "https://world.openfoodfacts.net/api/v2/product/{barcode}?fields=code,product_name,nutriscore_data,nutriments"
+URL = "https://world.openfoodfacts.net/api/v2/product/{barcode}?fields=code,product_name,nutriments"
 
 class Cart:
     def __init__(self):
@@ -20,7 +20,6 @@ class Cart:
             item = product.Product(
                 code=product_data.get('code'),
                 name=product_data.get('product_name'),
-                nutriscore=product_data.get('nutriscore_data'),
                 nutriments=product_data.get('nutriments')
             )
             
@@ -37,7 +36,6 @@ class Cart:
                 {
                     "code": p.code,
                     "name": p.name,
-                    "nutriscore": p.nutriscore,
                     "nutriments": p.nutriments
                 }
                 for p in self._products
