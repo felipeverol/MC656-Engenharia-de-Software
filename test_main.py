@@ -77,7 +77,7 @@ def test_get_cart_with_items(mock_get):
     assert data["cart"]["products"][0]["name"] == "Coca-Cola"
     assert data["cart"]["products"][0]["code"] == "737628064502"
 
-@patch('app.cart.requests.get')
+@patch('app.utils.cart.requests.get')
 def test_remove_item_successfully(mock_get):
     """
     Testa a remoção bem-sucedida de um item que existe no carrinho.
