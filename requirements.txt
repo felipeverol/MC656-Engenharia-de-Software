@@ -6,3 +6,6 @@ httpx
 flake8
 mypy
 types-requests
+sqlalchemy
+email-validator
+passlib[bcrypt]
