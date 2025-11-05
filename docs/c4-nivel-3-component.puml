@@ -1,0 +1,35 @@
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+
+title Nível 3 - Componentes da API (Micro-agora)
+
+Container_Boundary(api, "API da Aplicação - FastAPI") {
+
+    Component(controller_prod, "ProductController", "FastAPI Router", "Recebe requisições do front relacionadas a produtos e delega o processamento para o ProductService")
+
+    Component(controller_cart, "CartController", "FastAPI Router", "Gerencia operações de carrinho: adicionar, remover e listar produtos do usuário")
+
+    Component(service_prod, "ProductService", "Python Service", "Implementa a lógica de negócio e se comunica com o integrador e o repositório de dados")
+
+    Component(integrator_openfood, "OpenFoodFactsIntegrator", "HTTP Client", "Consulta a API pública do OpenFoodFacts para obter informações nutricionais")
+
+    Component(repository, "DataBase", "SQLAlchemy ORM", "Gerencia persistência de dados no banco SQLite (CRUD de produtos, usuários e carrinhos)")
+}
+
+System_Ext(openfood, "OpenFoodFacts", "API REST pública", "Fornece dados nutricionais e de composição de produtos alimentícios")
+
+ContainerDb(db, "Banco de Dados", "SQLite", "Armazena usuários, carrinhos e produtos")
+
+' --- Relacionamentos
+Rel(front, controller_prod, "Envia requisições", "HTTPS/JSON")
+Rel(front, controller_cart, "Gerencia carrinho", "HTTPS/JSON")
+
+Rel(controller_prod, service_prod, "Chama")
+Rel(controller_cart, service_prod, "Chama")
+Rel(service_prod, integrator_openfood, "Consulta dados nutricionais", "HTTPS/JSON")
+Rel(service_prod, repository, "Lê e grava dados", "SQLAlchemy ORM")
+Rel(repository, db, "Opera sobre")
+
+Rel(integrator_openfood, openfood, "Consome API pública", "HTTPS/JSON")
+
+@enduml
