@@ -4,7 +4,7 @@ from app.utils import cart as ct
 from sqlalchemy.orm import Session
 from typing import List
 from fastapi.middleware.cors import CORSMiddleware
-
+from app.utils import analytics_service
 from app.database import models, schemas
 from app.auth import crud
 from app.database.database import SessionLocal, engine
@@ -12,6 +12,9 @@ from app.database.database import SessionLocal, engine
 
 app = FastAPI()
 cart = ct.Cart()
+
+# Ativação do observer
+analytics_service.setup_analytics_observers()
 
 app.add_middleware(
     CORSMiddleware,

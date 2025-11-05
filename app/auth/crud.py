@@ -2,6 +2,7 @@ from sqlalchemy.orm import Session
 from app.database import models
 from app.database import schemas
 from app.auth import security
+from app.utils import observer 
 
 def get_user_by_email(db: Session, email: str):
     return db.query(models.User).filter(models.User.email == email).first()
@@ -35,6 +36,7 @@ def create_product(db: Session, product: schemas.ProductCreate):
     db.add(db_product)
     db.commit()
     db.refresh(db_product)
+    observer.post_event("product_created", db_product)
     return db_product
 
 
