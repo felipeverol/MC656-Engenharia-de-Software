@@ -43,22 +43,14 @@ def get_user_carts(db: Session, user_id: int):
     return db.query(models.SavedCart).filter(models.SavedCart.user_id == user_id).all()
 
 def create_user_cart(db: Session, cart: schemas.SavedCartCreate, user_id: int):
-    # Só cria o "container" do carrinho, vazio
-    db_cart = models.SavedCart(**cart.model_dump(), user_id=user_id)
+    # Salva o carrinho com o JSON 
+    db_cart = models.SavedCart(
+        name=cart.name,
+        cart_data=cart.cart_data,
+        user_id=user_id
+    )
     db.add(db_cart)
     db.commit()
     db.refresh(db_cart)
     return db_cart
 
-
-def add_item_to_cart(db: Session, cart_id: int, item: schemas.CartItemCreate):
-    # Cria o novo item de carrinho, linkando ao cart_id e ao barcode
-    db_item = models.CartItem(
-        cart_id=cart_id,
-        product_barcode=item.product_barcode,
-        quantity=item.quantity
-    )
-    db.add(db_item)
-    db.commit()
-    db.refresh(db_item)
-    return db_item
