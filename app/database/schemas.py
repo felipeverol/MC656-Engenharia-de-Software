@@ -1,5 +1,5 @@
 from pydantic import BaseModel, EmailStr
-from typing import List, Optional
+from typing import List, Optional, Any
 
 class ProductBase(BaseModel):
     name: str
@@ -34,6 +34,7 @@ class CartItem(CartItemBase):
 
 class SavedCartBase(BaseModel):
     name: str = "Meu Carrinho"
+    cart_data: Any
 
 class SavedCartCreate(SavedCartBase):
     pass

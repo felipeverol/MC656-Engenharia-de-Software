@@ -1,5 +1,4 @@
 from sqlalchemy.orm import Session
-
 from app.database import models
 from app.database import schemas
 from app.auth import security
