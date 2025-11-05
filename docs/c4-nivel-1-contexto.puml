@@ -1,0 +1,16 @@
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
+
+title Nível 1 - Diagrama de Contexto (Micro-agora)
+
+Person(cliente, "Cliente", "Deseja montar uma lista de mercado (carrinho) com base no valor nutricional dos produtos desejados")
+
+System(microagora, "Plataforma Micro-agora", "Permite que o cliente monte e gerencie uma lista de compras com base nas informações nutricionais dos produtos")
+
+System_Ext(apiNutri, "API de Informações Nutricionais", "Fornece informações nutricionais dos produtos consultados")
+
+Rel(cliente, microagora, "Usa via navegador web", "HTTP/Browser")
+Rel(microagora, apiNutri, "Consulta dados nutricionais", "HTTPS/JSON")
+
+SHOW_LEGEND()
+@enduml

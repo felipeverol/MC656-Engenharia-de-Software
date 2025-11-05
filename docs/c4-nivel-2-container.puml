@@ -1,0 +1,23 @@
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+title Nível 2 - Diagrama de Container (Micro-agora)
+
+Person(cliente, "Cliente", "Deseja montar uma lista de mercado (carrinho) com base no valor nutricional dos produtos desejados")
+
+System_Boundary(sistema, "Plataforma Micro-agora") {
+    
+    Container(front, "Aplicação Cliente", "React / Web", "Interface utilizada pelos clientes para interagir com o sistema via navegador, permitindo visualizar e gerenciar o carrinho de compras")
+    Container(api, "API da Aplicação", "Python / FastAPI", "Exposição de endpoints REST. Processa as requisições vindas do front, acessa dados locais e consome informações nutricionais externas")
+    ContainerDb(db, "Banco de Dados", "SQLite", "Armazena informações de usuários, seus carrinhos e produtos adicionados")
+}
+
+System_Ext(openfood, "OpenFoodFacts", "API REST pública", "Fornece dados nutricionais e de composição sobre produtos alimentícios, utilizados pela aplicação para sugerir e complementar informações dos itens no carrinho")
+
+' --- Fluxos de comunicação
+Rel(cliente, front, "Usa", "HTTP/Browser")
+Rel(front, api, "Envia requisições", "HTTPS/JSON")
+Rel(api, db, "Lê e grava dados", "SQL/ORM")
+Rel(api, openfood, "Consulta informações nutricionais de produtos", "HTTPS/JSON")
+
+@enduml
