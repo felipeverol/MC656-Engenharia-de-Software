@@ -1,6 +1,14 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, Depends, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
-from app import cart as ct
+from app.utils import cart as ct
+from sqlalchemy.orm import Session
+from typing import List
+from fastapi.middleware.cors import CORSMiddleware
+
+from app.database import models, schemas
+from app.auth import crud
+from app.database.database import SessionLocal, engine
+
 
 app = FastAPI()
 cart = ct.Cart()
@@ -40,3 +48,15 @@ def delete_cart():
     if success:
         return {"msg": "Cart deleted!"}
     raise HTTPException(status_code=404, detail="Cart not found")
+
+#-----------------------------------------------------------------------
+# Cria TODAS as 4 tabelas no seu 'cart.db'
+models.Base.metadata.create_all(bind=engine)
+
+# --- Dependência do Banco ---
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()

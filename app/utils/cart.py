@@ -1,4 +1,4 @@
-from app import product
+from app.utils import product
 import requests
 
 URL = "https://world.openfoodfacts.net/api/v2/product/{barcode}?fields=code,product_name,nutriments"
