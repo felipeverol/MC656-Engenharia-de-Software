@@ -1,4 +1,5 @@
 from app.utils import product
+from app.utils.observer import Observer
 import requests
 
 URL = "https://world.openfoodfacts.net/api/v2/product/{barcode}?fields=code,product_name,nutriments"
@@ -6,6 +7,17 @@ URL = "https://world.openfoodfacts.net/api/v2/product/{barcode}?fields=code,prod
 class Cart:
     def __init__(self):
         self._products = []
+        self._observers = []  # lista de observadores
+
+    def attach(self, observer: Observer):
+        self._observers.append(observer)
+
+    def detach(self, observer: Observer):
+        self._observers.remove(observer)
+
+    def _notify(self, event: str, data: dict):
+        for observer in self._observers:
+            observer.update(event, data)
 
     @property
     def products(self):
@@ -24,13 +36,13 @@ class Cart:
             )
             
             self._products.append(item)
-
+            self._notify("product_added", {"code": barcode})
             return item
         
         return None
 
     def list_items(self):
-        return {
+        data = {
             "total_items": len(self._products),
             "products": [
                 {
@@ -41,15 +53,18 @@ class Cart:
                 for p in self._products
             ]
         }
+        return data
     
     def remove_item(self, barcode: str):
         for i, product in enumerate(self._products):
             if product.code == barcode:
                 del self._products[i]
                 return True
+        self._notify("product_removed", {"code": barcode})
         return False
 
     def delete_cart(self):
         self._products = []
         self._total_items = 0
+        self._notify("cart_deleted", {"message": "Cart has been cleared"})
         return True
