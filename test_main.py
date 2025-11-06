@@ -1,5 +1,5 @@
 from fastapi.testclient import TestClient
-from unittest.mock import patch
+from unittest.mock import patch, Mock
 from app.main import app
 
 client = TestClient(app)
@@ -17,11 +17,16 @@ def test_get_empty_cart():
 
 @patch('app.utils.product_service.ProductService.fetch_product')
 def test_get_cart_with_items(mock_fetch_product):
-    mock_fetch_product.return_value = {
-        "code": "737628064502",
-        "name": "Coca-Cola",
-        "nutriments": {"energy-kcal_100g": 42}
-    }
+    mock_fetch_product.return_value = Mock(
+        code="737628064502",
+        name="Coca-Cola",
+        nutriments={"energy-kcal_100g": 42},
+        to_dict=lambda: {
+            "code": "737628064502",
+            "name": "Coca-Cola",
+            "nutriments": {"energy-kcal_100g": 42}
+        }
+    )
 
     add_response = client.get("/add/737628064502")
     assert add_response.status_code == 200
@@ -35,11 +40,16 @@ def test_get_cart_with_items(mock_fetch_product):
 
 @patch('app.utils.product_service.ProductService.fetch_product')
 def test_remove_item_successfully(mock_fetch_product):
-    mock_fetch_product.return_value = {
-        "code": "737628064502",
-        "name": "Coca-Cola",
-        "nutriments": {"energy-kcal_100g": 42}
-    }
+    mock_fetch_product.return_value = Mock(
+        code="737628064502",
+        name="Coca-Cola",
+        nutriments={"energy-kcal_100g": 42},
+        to_dict=lambda: {
+            "code": "737628064502",
+            "name": "Coca-Cola",
+            "nutriments": {"energy-kcal_100g": 42}
+        }
+    )
 
     client.get("/delete/cart")
     client.get("/add/737628064502")
@@ -61,11 +71,16 @@ def test_remove_item_not_found():
 
 @patch('app.utils.product_service.ProductService.fetch_product')
 def test_add_product_found(mock_fetch_product):
-    mock_fetch_product.return_value = {
-        "code": "3017624010701",
-        "name": "Test Product",
-        "nutriments": {"energy-kcal_100g": 50}
-    }
+    mock_fetch_product.return_value = Mock(
+        code="3017624010701",
+        name="Test Product",
+        nutriments={"energy-kcal_100g": 50},
+        to_dict=lambda: {
+            "code": "3017624010701",
+            "name": "Test Product",
+            "nutriments": {"energy-kcal_100g": 50}
+        }
+    )
 
     barcode_to_test = "3017624010701"
     response = client.get(f"/add/{barcode_to_test}")
