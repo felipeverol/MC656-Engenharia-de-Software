@@ -21,7 +21,7 @@ def test_get_cart_with_items(mock_fetch_product):
         code="737628064502",
         name="Coca-Cola",
         nutriments={"energy-kcal_100g": 42},
-        to_dict=lambda: {
+        to_dict={
             "code": "737628064502",
             "name": "Coca-Cola",
             "nutriments": {"energy-kcal_100g": 42}
@@ -44,7 +44,7 @@ def test_remove_item_successfully(mock_fetch_product):
         code="737628064502",
         name="Coca-Cola",
         nutriments={"energy-kcal_100g": 42},
-        to_dict=lambda: {
+        to_dict={
             "code": "737628064502",
             "name": "Coca-Cola",
             "nutriments": {"energy-kcal_100g": 42}
@@ -75,7 +75,7 @@ def test_add_product_found(mock_fetch_product):
         code="3017624010701",
         name="Test Product",
         nutriments={"energy-kcal_100g": 50},
-        to_dict=lambda: {
+        to_dict={
             "code": "3017624010701",
             "name": "Test Product",
             "nutriments": {"energy-kcal_100g": 50}
