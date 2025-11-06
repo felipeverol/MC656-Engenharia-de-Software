@@ -1,6 +1,7 @@
 from fastapi.testclient import TestClient
 from unittest.mock import patch, Mock
 from app.main import app
+from app.utils.product import Product
 
 client = TestClient(app)
 
@@ -17,7 +18,7 @@ def test_get_empty_cart():
 
 @patch('app.utils.product_service.ProductService.fetch_product')
 def test_get_cart_with_items(mock_fetch_product):
-    mock_fetch_product.return_value = Mock(
+    mock_fetch_product.return_value = Product(
         code="737628064502",
         name="Coca-Cola",
         nutriments={"energy-kcal_100g": 42}
@@ -35,7 +36,7 @@ def test_get_cart_with_items(mock_fetch_product):
 
 @patch('app.utils.product_service.ProductService.fetch_product')
 def test_remove_item_successfully(mock_fetch_product):
-    mock_fetch_product.return_value = Mock(
+    mock_fetch_product.return_value = Product(
         code="737628064502",
         name="Coca-Cola",
         nutriments={"energy-kcal_100g": 42}
@@ -61,7 +62,7 @@ def test_remove_item_not_found():
 
 @patch('app.utils.product_service.ProductService.fetch_product')
 def test_add_product_found(mock_fetch_product):
-    mock_fetch_product.return_value = Mock(
+    mock_fetch_product.return_value = Product(
         code="3017624010701",
         name="Test Product",
         nutriments={"energy-kcal_100g": 50}
