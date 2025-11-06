@@ -53,9 +53,6 @@ def test_get_cart_with_items(mock_fetch_product):
     """
     # 1. Configura o Mock para simular uma chamada de API bem-sucedida
     mock_fetch_product.return_value = Mock(
-        code="737628064502",
-        name="Coca-Cola",
-        nutriments={"energy-kcal_100g": 42},
         to_dict=lambda: {
             "code": "737628064502",
             "name": "Coca-Cola",
@@ -97,9 +94,11 @@ def test_remove_item_successfully(mock_fetch_product):
     """
     # 1. Configura o Mock para simular a adição de um produto
     mock_fetch_product.return_value = Mock(
-        code="737628064502",
-        name="Coca-Cola",
-        to_dict=lambda: {"code": "737628064502", "name": "Coca-Cola"}
+        to_dict=lambda: {
+            "code": "737628064502",
+            "name": "Coca-Cola",
+            "nutriments": {"energy-kcal_100g": 42}
+        }
     )
 
     # 2. Setup: Adiciona um item ao carrinho
@@ -148,9 +147,11 @@ def test_add_product_found(mock_fetch_product):
     Verifica o status code, o JSON retornado e o estado do carrinho.
     """
     mock_fetch_product.return_value = Mock(
-        code="3017624010701",
-        name="Test Product",
-        to_dict=lambda: {"code": "3017624010701", "name": "Test Product"}
+        to_dict=lambda: {
+            "code": "3017624010701",
+            "name": "Test Product",
+            "nutriments": {"energy-kcal_100g": 50}
+        }
     )
 
     barcode_to_test = "3017624010701"
