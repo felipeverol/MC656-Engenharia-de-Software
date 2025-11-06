@@ -20,12 +20,7 @@ def test_get_cart_with_items(mock_fetch_product):
     mock_fetch_product.return_value = Mock(
         code="737628064502",
         name="Coca-Cola",
-        nutriments={"energy-kcal_100g": 42},
-        to_dict={
-            "code": "737628064502",
-            "name": "Coca-Cola",
-            "nutriments": {"energy-kcal_100g": 42}
-        }
+        nutriments={"energy-kcal_100g": 42}
     )
 
     add_response = client.get("/add/737628064502")
@@ -43,12 +38,7 @@ def test_remove_item_successfully(mock_fetch_product):
     mock_fetch_product.return_value = Mock(
         code="737628064502",
         name="Coca-Cola",
-        nutriments={"energy-kcal_100g": 42},
-        to_dict={
-            "code": "737628064502",
-            "name": "Coca-Cola",
-            "nutriments": {"energy-kcal_100g": 42}
-        }
+        nutriments={"energy-kcal_100g": 42}
     )
 
     client.get("/delete/cart")
@@ -74,12 +64,7 @@ def test_add_product_found(mock_fetch_product):
     mock_fetch_product.return_value = Mock(
         code="3017624010701",
         name="Test Product",
-        nutriments={"energy-kcal_100g": 50},
-        to_dict={
-            "code": "3017624010701",
-            "name": "Test Product",
-            "nutriments": {"energy-kcal_100g": 50}
-        }
+        nutriments={"energy-kcal_100g": 50}
     )
 
     barcode_to_test = "3017624010701"
