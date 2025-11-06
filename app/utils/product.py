@@ -15,3 +15,10 @@ class Product:
     @property
     def nutriments(self):
         return self._nutriments
+
+    def to_dict(self):
+        return {
+            "code": self.code,
+            "name": self.name,
+            "nutriments": self.nutriments
+        }

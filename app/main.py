@@ -1,12 +1,9 @@
-from fastapi import FastAPI, Depends, HTTPException
+from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from app.utils import cart as ct
-from sqlalchemy.orm import Session
-from typing import List
 from fastapi.middleware.cors import CORSMiddleware
 from app.utils.nutrition_service import NutritionObserver
-from app.database import models, schemas
-from app.auth import crud
+from app.database import models
 from app.database.database import SessionLocal, engine
 
 

@@ -1,8 +1,5 @@
-from app.utils import product
 from app.utils.observer import Observer
-import requests
-
-URL = "https://world.openfoodfacts.net/api/v2/product/{barcode}?fields=code,product_name,nutriments"
+from app.utils.product_service import ProductService
 
 class Cart:
     def __init__(self):
@@ -24,34 +21,17 @@ class Cart:
         return self._products
 
     def add_product(self, barcode: str):
-        response = requests.get(URL.format(barcode=barcode))
-        
-        if response.status_code == 200:
-            product_data = response.json().get('product', {})
-            
-            item = product.Product(
-                code=product_data.get('code'),
-                name=product_data.get('product_name'),
-                nutriments=product_data.get('nutriments')
-            )
-            
+        item = ProductService.fetch_product(barcode)
+        if item:
             self._products.append(item)
             self._notify("product_added", {"code": barcode})
             return item
-        
         return None
 
     def list_items(self):
         data = {
             "total_items": len(self._products),
-            "products": [
-                {
-                    "code": p.code,
-                    "name": p.name,
-                    "nutriments": p.nutriments
-                }
-                for p in self._products
-            ]
+            "products": [p.to_dict() for p in self._products]
         }
         return data
     
@@ -65,6 +45,5 @@ class Cart:
 
     def delete_cart(self):
         self._products = []
-        self._total_items = 0
         self._notify("cart_deleted", {"message": "Cart has been cleared"})
         return True
