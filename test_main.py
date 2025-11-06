@@ -31,8 +31,8 @@ def test_get_empty_cart():
     assert response.json() == expected_data
 
 # Usa o patch para substituir `requests.get` por um objeto "mock" (simulado)
-@patch('requests.get')
-def test_get_cart_with_items(mock_get):
+@patch('app.utils.product_service.ProductService.fetch_product')
+def test_get_cart_with_items(mock_fetch_product):
     """
     Testa se a rota `/cart` retorna corretamente os itens após um produto ser adicionado.
 
@@ -52,16 +52,16 @@ def test_get_cart_with_items(mock_get):
        igual a 1 e os dados do produto correspondendo ao que foi simulado.
     """
     # 1. Configura o Mock para simular uma chamada de API bem-sucedida
-    mock_response = Mock()
-    mock_response.status_code = 200
-    mock_response.json.return_value = {
-        "product": {
+    mock_fetch_product.return_value = Mock(
+        code="737628064502",
+        name="Coca-Cola",
+        nutriments={"energy-kcal_100g": 42},
+        to_dict=lambda: {
             "code": "737628064502",
-            "product_name": "Coca-Cola",
+            "name": "Coca-Cola",
             "nutriments": {"energy-kcal_100g": 42}
         }
-    }
-    mock_get.return_value = mock_response
+    )
 
     # 2. Setup: Carrinho é iniciado vazio e depois adiciona um produto
     add_response = client.get("/add/737628064502")
@@ -77,8 +77,8 @@ def test_get_cart_with_items(mock_get):
     assert data["cart"]["products"][0]["name"] == "Coca-Cola"
     assert data["cart"]["products"][0]["code"] == "737628064502"
 
-@patch('app.utils.cart.requests.get')
-def test_remove_item_successfully(mock_get):
+@patch('app.utils.product_service.ProductService.fetch_product')
+def test_remove_item_successfully(mock_fetch_product):
     """
     Testa a remoção bem-sucedida de um item que existe no carrinho.
 
@@ -96,12 +96,11 @@ def test_remove_item_successfully(mock_get):
        - Uma chamada subsequente a `/cart` confirma que o número total de itens é 0.
     """
     # 1. Configura o Mock para simular a adição de um produto
-    mock_response = Mock()
-    mock_response.status_code = 200
-    mock_response.json.return_value = {
-        "product": { "code": "737628064502", "product_name": "Coca-Cola" }
-    }
-    mock_get.return_value = mock_response
+    mock_fetch_product.return_value = Mock(
+        code="737628064502",
+        name="Coca-Cola",
+        to_dict=lambda: {"code": "737628064502", "name": "Coca-Cola"}
+    )
 
     # 2. Setup: Adiciona um item ao carrinho
     client.get("/delete/cart")
@@ -114,12 +113,12 @@ def test_remove_item_successfully(mock_get):
     assert response.status_code == 200
     data = response.json()
     assert data["msg"] == "737628064502 removed!"
-    assert data["cart"] == [] # A lista de nomes de produtos no carrinho deve estar vazia
+    assert data["cart"] == []
 
     # Verifica o estado final do carrinho para ter certeza
     final_cart_response = client.get("/cart")
     assert final_cart_response.json()["cart"]["total_items"] == 0
-    
+
 def test_remove_item_not_found():
     """
     Testa a resposta de erro ao tentar remover um item que não está no carrinho.
@@ -142,11 +141,18 @@ def test_remove_item_not_found():
     assert response.status_code == 404
     assert response.json()["detail"] == "Product not found in cart"
 
-def test_add_product_found():
+@patch('app.utils.product_service.ProductService.fetch_product')
+def test_add_product_found(mock_fetch_product):
     """
     Testa o endpoint de adicionar um produto ao carrinho.
     Verifica o status code, o JSON retornado e o estado do carrinho.
     """
+    mock_fetch_product.return_value = Mock(
+        code="3017624010701",
+        name="Test Product",
+        to_dict=lambda: {"code": "3017624010701", "name": "Test Product"}
+    )
+
     barcode_to_test = "3017624010701"
     response = client.get(f"/add/{barcode_to_test}")
 
