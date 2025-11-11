@@ -3,7 +3,7 @@ import { Product, CartResponse } from "@/types/product";
 const API_BASE_URL = (import.meta.env.VITE_API_URL || "http://localhost:8000").replace(/\/$/, "");
 
 export async function addProductToCart(barcode: string): Promise<Product> {
-  const response = await fetch(`${API_BASE_URL}/add/${barcode}`);
+  const response = await fetch(`${API_BASE_URL}/cart/add/${barcode}`);
 
   if (!response.ok) {
     if (response.status === 404) {
@@ -39,7 +39,7 @@ export async function getCart(): Promise<CartResponse> {
 }
 
 export async function removeProductFromCart(barcode: string): Promise<void> {
-  const response = await fetch(`${API_BASE_URL}/remove/${barcode}`);
+  const response = await fetch(`${API_BASE_URL}/cart/remove/${barcode}`);
 
   if (!response.ok) {
     if (response.status === 404) {
