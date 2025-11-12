@@ -3,9 +3,24 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import ShoppingCart from "./components/shopping-cart/ShoppingCart";
 import AuthPage from "./components/auth-page/AuthPage";
 
+function isTokenExpired(token: string): boolean {
+  try {
+    const payload = JSON.parse(atob(token.split(".")[1]));
+    return Date.now() >= payload.exp * 1000;
+  } catch {
+    return true;
+  }
+}
+
 function PrivateRoute({ children }: { children: JSX.Element }) {
   const token = localStorage.getItem("token");
-  return token ? children : <Navigate to="/auth" replace />;
+
+  if (!token || isTokenExpired(token)) {
+    localStorage.removeItem("token");
+    return <Navigate to="/auth" replace />;
+  }
+
+  return children;
 }
 
 export default function App() {

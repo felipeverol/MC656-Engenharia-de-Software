@@ -1,6 +1,8 @@
 from app.utils.observer import Observer
 from app.utils.product_service import ProductService
 
+user_carts = {}
+
 class Cart:
     def __init__(self):
         self._products = []

@@ -1,5 +1,4 @@
-const API_BASE_URL = (import.meta.env.VITE_API_URL || "http://localhost:8000")
-  .replace(/\/$/, "");
+const API_BASE_URL = (import.meta.env.VITE_API_URL || "http://localhost:8000").replace(/\/$/, "");
 
 export async function registerUser(name: string, email: string, password: string) {
   const response = await fetch(`${API_BASE_URL}/auth/register`, {
@@ -8,12 +7,13 @@ export async function registerUser(name: string, email: string, password: string
     body: JSON.stringify({ name, email, password }),
   });
 
+  const data = await response.json().catch(() => ({}));
+
   if (!response.ok) {
-    const data = await response.json().catch(() => ({}));
     throw new Error(data.detail || "Erro ao registrar usuário");
   }
 
-  return response.json();
+  return data;
 }
 
 export async function loginUser(email: string, password: string) {
@@ -27,12 +27,12 @@ export async function loginUser(email: string, password: string) {
     body: formData.toString(),
   });
 
+  const data = await response.json().catch(() => ({}));
+
   if (!response.ok) {
-    const data = await response.json().catch(() => ({}));
     throw new Error(data.detail || "Falha no login");
   }
 
-  const data = await response.json();
   const token = data.access_token;
   localStorage.setItem("token", token);
   return token;
@@ -46,12 +46,13 @@ export async function getCurrentUser() {
     headers: { Authorization: `Bearer ${token}` },
   });
 
+  const data = await response.json().catch(() => ({}));
+
   if (!response.ok) {
-    const data = await response.json().catch(() => ({}));
     throw new Error(data.detail || "Erro ao obter usuário");
   }
 
-  return response.json();
+  return data;
 }
 
 export function logoutUser() {
