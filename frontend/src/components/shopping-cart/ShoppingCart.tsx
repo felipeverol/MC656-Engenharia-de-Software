@@ -1,5 +1,6 @@
 import { useState, useMemo, useEffect } from "react";
 import { Product } from "@/types/product";
+import { saveCart } from "@/services/cartService";
 import { addProductToCart, getCart, removeProductFromCart } from "@/services/productService";
 import BarcodeInput from "@/components/shopping-cart/BarcodeInput";
 import ProductList from "@/components/shopping-cart/ProductList";
@@ -70,6 +71,23 @@ export default function ShoppingCart() {
     }
   };
 
+  const handleSaveCart = async () => {
+  try {
+    const result = await saveCart("My Smart Cart");
+
+    toast({
+      title: "Cart Saved ✅",
+      description: result.msg || "Your cart has been successfully saved!",
+    });
+  } catch (error) {
+    toast({
+      title: "Error",
+      description: error instanceof Error ? error.message : "Something went wrong",
+      variant: "destructive",
+    });
+  }
+};
+
   const nutritionalTotals = useMemo(() => {
     return cartItems.reduce(
       (totals, item) => ({
@@ -134,6 +152,15 @@ export default function ShoppingCart() {
             proteins={nutritionalTotals.proteins}
             fats={nutritionalTotals.fats}
           />
+        </div>
+
+        <div className="flex justify-center mt-8">
+          <button
+            onClick={handleSaveCart}
+            className="px-6 py-3 bg-primary text-white rounded-xl font-semibold hover:bg-primary/90 transition-colors shadow-md"
+          >
+            Save Cart
+          </button>
         </div>
 
         {/* Helper Text */}

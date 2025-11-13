@@ -1,21 +1,14 @@
 # app/routers/auth_router.py
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 
-from app.database import crud, schemas, database
+from app.database import crud, schemas
+from app.database.database import get_db
 from app.auth import jwt_handler, security
 
 router = APIRouter(prefix="/auth", tags=["auth"])
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/auth/login")
-
-# --- Dependência do banco ---
-def get_db():
-    db = database.SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
 
 # --- Registrar novo usuário ---
 @router.post("/register", response_model=schemas.User)

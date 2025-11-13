@@ -5,7 +5,7 @@ from fastapi import HTTPException, status
 # TODO: Mudar para variáveis de ambiente
 SECRET_KEY = "codigo123" 
 ALGORITHM = "HS256"
-ACCESS_TOKEN_EXPIRE_MINUTES = 0.1
+ACCESS_TOKEN_EXPIRE_MINUTES = 60
 
 def create_access_token(data: dict):
     to_encode = data.copy()
