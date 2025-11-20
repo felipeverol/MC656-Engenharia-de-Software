@@ -1,6 +1,7 @@
 from datetime import datetime, timedelta, timezone
 from jose import JWTError, jwt
 from fastapi import HTTPException, status
+from typing import Optional 
 
 # TODO: Mudar para variáveis de ambiente
 SECRET_KEY = "codigo123" 
@@ -14,10 +15,18 @@ def create_access_token(data: dict):
     encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
     return encoded_jwt
 
-def verify_access_token(token: str):
+def verify_access_token(token: str) -> int:
     try:
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
-        user_id: int = payload.get("sub")
+        sub: Optional[str] = payload.get("sub")
+        
+        if sub is None:
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="Token inválido ou expirado",
+            )
+        
+        user_id: int = int(sub)
         return user_id
     except JWTError:
         raise HTTPException(
