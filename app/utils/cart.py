@@ -1,5 +1,8 @@
+from typing import Dict
 from app.utils.observer import Observer
 from app.utils.product_service import ProductService
+
+user_carts: Dict[int, 'Cart'] = {}
 
 class Cart:
     def __init__(self):

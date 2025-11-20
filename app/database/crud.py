@@ -42,7 +42,6 @@ def get_user_carts(db: Session, user_id: int):
     return db.query(models.SavedCart).filter(models.SavedCart.user_id == user_id).all()
 
 def create_user_cart(db: Session, cart: schemas.SavedCartCreate, user_id: int):
-    # Salva o carrinho com o JSON 
     db_cart = models.SavedCart(
         name=cart.name,
         cart_data=cart.cart_data,
