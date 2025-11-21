@@ -60,13 +60,23 @@ export default function SavedCartsPage() {
 
   return (
     <div style={{ padding: 20, maxWidth: 700, margin: "0 auto" }}>
+      <button
+        onClick={() => (window.location.href = "http://localhost:5173/")}
+        className="absolute left-4 top-4 text-base text-primary hover:underline"
+      >
+        ← Voltar
+      </button>
       <div className="relative mb-8 flex items-center justify-center">
         {/* Título centralizado */}
         <div className="flex flex-col items-center">
-          <div className="flex items-center gap-3">
-            <ShoppingBasket className="h-10 w-10 text-primary" />
-            <h1 className="text-4xl font-bold text-primary">Smart Shopping Cart</h1>
-          </div>
+          <button
+            onClick={() => (window.location.href = "http://localhost:5173/home")}
+          >
+            <div className="flex items-center gap-3">
+              <ShoppingBasket className="h-10 w-10 text-primary" />
+              <h1 className="text-4xl font-bold text-primary">Smart Shopping Cart</h1>
+            </div>
+          </button>
           <p className="text-muted-foreground text-lg">
             Acompanhe sua nutrição a cada leitura
           </p>
