@@ -6,7 +6,7 @@ import {
   getCart,
   removeProductFromCart,
 } from "@/services/productService";
-import { getCurrentUser } from "@/services/authService"; // Importação do auth
+import { getCurrentUser } from "@/services/authService";
 import BarcodeInput from "@/components/shopping-cart/BarcodeInput";
 import ProductList from "@/components/shopping-cart/ProductList";
 import NutritionalSummary from "@/components/shopping-cart/NutritionalSummary";
@@ -289,24 +289,16 @@ export default function ShoppingCart() {
       <div className="max-w-7xl mx-auto">
         {/* Header Unificado e Corrigido */}
         <div className="relative mb-8 flex items-center justify-center">
-          {/* Botão no canto superior direito (Posicionamento Absoluto) */}
-          <button
-            onClick={() =>
-              (window.location.href = "http://localhost:5173/saved-carts")
-            }
-            className="absolute right-0 top-2 px-5 py-2 bg-primary text-white rounded-xl font-semibold shadow hover:bg-primary/90 transition text-sm md:text-base"
-          >
-            Ver meus carrinhos salvos
-          </button>
-
-          {/* Título e Subtítulo (Centralizado) */}
-          <div className="flex flex-col items-center text-center mt-12 md:mt-0">
-            <div className="flex items-center gap-3 mb-2">
-              <ShoppingBasket className="h-10 w-10 text-primary" />
-              <h1 className="text-3xl md:text-4xl font-bold text-primary">
-                Smart Shopping Cart
-              </h1>
-            </div>
+          {/* Título centralizado */}
+          <div className="flex flex-col items-center">
+            <button
+              onClick={() => (window.location.href = "http://localhost:5173/home")}
+            >
+              <div className="flex items-center gap-3">
+                <ShoppingBasket className="h-10 w-10 text-primary" />
+                <h1 className="text-4xl font-bold text-primary">Smart Shopping Cart</h1>
+              </div>
+            </button>
             <p className="text-muted-foreground text-lg">
               Acompanhe sua nutrição a cada leitura
             </p>
@@ -400,13 +392,14 @@ export default function ShoppingCart() {
             </div>
           </div>
 
-          {/* Save Button Area */}
-          <div className="flex justify-center mt-8">
+          {/* Botões de ação: Ver carrinhos + Salvar */}
+          <div className="flex flex-col md:flex-row justify-center items-center gap-4 mt-8">
+            {/* Botão Salvar */}
             <button
               onClick={handleSaveCart}
               disabled={hasExceededLimits || isSaving}
               className={`px-8 py-4 rounded-xl font-bold text-lg transition-all shadow-lg flex items-center gap-3
-              ${hasExceededLimits
+      ${hasExceededLimits
                   ? "bg-slate-300 text-slate-500 cursor-not-allowed"
                   : "bg-primary text-white hover:bg-primary/90 hover:scale-105 active:scale-95"
                 }`}
@@ -421,6 +414,17 @@ export default function ShoppingCart() {
                   Salvar e Enviar E-mail
                 </>
               )}
+            </button>
+
+            {/* Botão Ver Carrinhos */}
+            <button
+              onClick={() =>
+                (window.location.href = "http://localhost:5173/saved-carts")
+              }
+              className="px-8 py-4 rounded-xl font-bold text-lg bg-slate-200 text-slate-800 
+               hover:bg-slate-300 transition-all shadow flex items-center gap-3"
+            >
+              📁 Ver meus carrinhos salvos
             </button>
           </div>
 
@@ -437,6 +441,6 @@ export default function ShoppingCart() {
         </div>
         <Toaster />
       </div>
-    </div>  
-    );
+    </div>
+  );
 }

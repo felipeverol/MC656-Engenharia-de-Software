@@ -1,5 +1,6 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { PieChart, Pie, Cell, ResponsiveContainer, Legend, Tooltip } from "recharts";
+import { BarChart3 } from "lucide-react";
 
 interface MacronutrientChartProps {
   carbs: number;
@@ -24,7 +25,12 @@ export default function MacronutrientChart({
     return (
       <Card className="shadow-lg border-2">
         <CardHeader>
-          <CardTitle className="text-lg">Distribuição de Macronutrientes</CardTitle>
+          <div className="flex items-center gap-2 mb-6">
+            <BarChart3 className="h-6 w-6 text-primary" />
+            <h2 className="text-2xl font-semibold text-primary">
+              Distribuição de Macronutrientes
+            </h2>
+          </div>
         </CardHeader>
         <CardContent>
           <div className="flex items-center justify-center h-[300px] text-muted-foreground">
@@ -38,7 +44,12 @@ export default function MacronutrientChart({
   return (
     <Card className="shadow-lg border-2">
       <CardHeader>
-        <CardTitle className="text-lg">Macronutrient Balance</CardTitle>
+        <div className="flex items-center gap-2 mb-6">
+          <BarChart3 className="h-6 w-6 text-primary" />
+          <h2 className="text-2xl font-semibold text-primary">
+            Distribuição de Macronutrientes
+          </h2>
+        </div>
       </CardHeader>
       <CardContent>
         <ResponsiveContainer width="100%" height={300}>
