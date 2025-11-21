@@ -26,7 +26,7 @@ conf = ConnectionConfig(
 async def send_email(email_data: EmailRequest, background_tasks: BackgroundTasks):
     message = MessageSchema(
         subject=email_data.subject,
-        recipients=[str(email_data.to)],
+        recipients=[str(email_data.to)], # type: ignore
         body=email_data.html,
         subtype=MessageType.html
     )
