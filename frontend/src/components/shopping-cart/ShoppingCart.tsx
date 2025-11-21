@@ -81,8 +81,7 @@ const generateEmailHtml = (userName: string, items: Product[], totals: any) => {
     .map(
       (item) =>
         `<li style="margin-bottom: 5px;">
-        <strong>${item.name}</strong>: ${
-          item.nutriments["energy-kcal"] || 0
+        <strong>${item.name}</strong>: ${item.nutriments["energy-kcal"] || 0
         } kcal
     </li>`
     )
@@ -319,27 +318,31 @@ export default function ShoppingCart() {
           <BarcodeInput onAddProduct={handleAddProduct} />
           <ProductList items={cartItems} onRemoveItem={handleRemoveItem} />
 
-          {/* Grid Split: Charts vs Limits */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {/* Nutritional Summary & Chart */}
-            <div className="space-y-6">
-              <h2 className="text-2xl font-semibold mb-4 text-primary">
-                Nutritional Summary
-              </h2>
-              <NutritionalSummary
-                totalCarbs={nutritionalTotals.carbs}
-                totalProteins={nutritionalTotals.proteins}
-                totalFats={nutritionalTotals.fats}
-                totalCalories={nutritionalTotals.calories}
-              />
-              <MacronutrientChart
-                carbs={nutritionalTotals.carbs}
-                proteins={nutritionalTotals.proteins}
-                fats={nutritionalTotals.fats}
-              />
-            </div>
+          {/* Summary no topo ocupando a largura toda */}
+          <div className="mb-8">
+            <h2 className="text-2xl font-semibold mb-4 text-primary">
+              Nutritional Summary
+            </h2>
 
-            {/* Limit Controls */}
+            <NutritionalSummary
+              totalCarbs={nutritionalTotals.carbs}
+              totalProteins={nutritionalTotals.proteins}
+              totalFats={nutritionalTotals.fats}
+              totalCalories={nutritionalTotals.calories}
+            />
+          </div>
+
+          {/* Grid: Chart (esquerda) e Limits (direita) */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+            {/* Chart */}
+            <MacronutrientChart
+              carbs={nutritionalTotals.carbs}
+              proteins={nutritionalTotals.proteins}
+              fats={nutritionalTotals.fats}
+            />
+
+            {/* Limits */}
             <div className="bg-white p-6 rounded-xl shadow-sm border h-fit">
               <div className="flex items-center gap-2 mb-6">
                 <Settings2 className="h-6 w-6 text-primary" />
@@ -355,9 +358,7 @@ export default function ShoppingCart() {
                   currentTotal={nutritionalTotals.calories}
                   max={4000}
                   unit="kcal"
-                  onChange={(val) =>
-                    setLimits((prev) => ({ ...prev, calories: val }))
-                  }
+                  onChange={(val) => setLimits((prev) => ({ ...prev, calories: val }))}
                 />
                 <LimitControl
                   label="Max Carbs"
@@ -365,9 +366,7 @@ export default function ShoppingCart() {
                   currentTotal={nutritionalTotals.carbs}
                   max={500}
                   unit="g"
-                  onChange={(val) =>
-                    setLimits((prev) => ({ ...prev, carbs: val }))
-                  }
+                  onChange={(val) => setLimits((prev) => ({ ...prev, carbs: val }))}
                 />
                 <LimitControl
                   label="Max Proteins"
@@ -375,9 +374,7 @@ export default function ShoppingCart() {
                   currentTotal={nutritionalTotals.proteins}
                   max={300}
                   unit="g"
-                  onChange={(val) =>
-                    setLimits((prev) => ({ ...prev, proteins: val }))
-                  }
+                  onChange={(val) => setLimits((prev) => ({ ...prev, proteins: val }))}
                 />
                 <LimitControl
                   label="Max Fats"
@@ -385,9 +382,7 @@ export default function ShoppingCart() {
                   currentTotal={nutritionalTotals.fats}
                   max={150}
                   unit="g"
-                  onChange={(val) =>
-                    setLimits((prev) => ({ ...prev, fats: val }))
-                  }
+                  onChange={(val) => setLimits((prev) => ({ ...prev, fats: val }))}
                 />
               </div>
 
@@ -404,45 +399,44 @@ export default function ShoppingCart() {
               )}
             </div>
           </div>
-        </div>
 
-        {/* Save Button Area */}
-        <div className="flex justify-center mt-8">
-          <button
-            onClick={handleSaveCart}
-            disabled={hasExceededLimits || isSaving}
-            className={`px-8 py-4 rounded-xl font-bold text-lg transition-all shadow-lg flex items-center gap-3
-              ${
-                hasExceededLimits
+          {/* Save Button Area */}
+          <div className="flex justify-center mt-8">
+            <button
+              onClick={handleSaveCart}
+              disabled={hasExceededLimits || isSaving}
+              className={`px-8 py-4 rounded-xl font-bold text-lg transition-all shadow-lg flex items-center gap-3
+              ${hasExceededLimits
                   ? "bg-slate-300 text-slate-500 cursor-not-allowed"
                   : "bg-primary text-white hover:bg-primary/90 hover:scale-105 active:scale-95"
-              }`}
-          >
-            {isSaving ? (
-              <>Enviando...</>
-            ) : hasExceededLimits ? (
-              <>Limits Exceeded 🚫</>
-            ) : (
-              <>
-                <Mail className="w-5 h-5" />
-                Save & Send Email
-              </>
-            )}
-          </button>
-        </div>
-
-        {cartItems.length === 0 && (
-          <div className="mt-8 text-center text-sm text-muted-foreground bg-card p-6 rounded-lg border-2 shadow-lg">
-            <p className="font-medium mb-2">
-              Scan any product barcode to get started!
-            </p>
-            <p className="text-xs">
-              The app will fetch product data from Open Food Facts
-            </p>
+                }`}
+            >
+              {isSaving ? (
+                <>Enviando...</>
+              ) : hasExceededLimits ? (
+                <>Limits Exceeded 🚫</>
+              ) : (
+                <>
+                  <Mail className="w-5 h-5" />
+                  Save & Send Email
+                </>
+              )}
+            </button>
           </div>
-        )}
+
+          {cartItems.length === 0 && (
+            <div className="mt-8 text-center text-sm text-muted-foreground bg-card p-6 rounded-lg border-2 shadow-lg">
+              <p className="font-medium mb-2">
+                Scan any product barcode to get started!
+              </p>
+              <p className="text-xs">
+                The app will fetch product data from Open Food Facts
+              </p>
+            </div>
+          )}
+        </div>
+        <Toaster />
       </div>
-      <Toaster />
-    </div>
-  );
+    </div>  
+    );
 }
