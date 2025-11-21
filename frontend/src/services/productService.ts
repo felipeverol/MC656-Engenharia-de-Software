@@ -15,9 +15,9 @@ export async function addProductToCart(barcode: string): Promise<Product> {
   });
 
   if (!response.ok) {
-    if (response.status === 404) throw new Error("Product not found");
-    if (response.status === 401) throw new Error("Unauthorized: token inválido ou ausente");
-    throw new Error("Failed to add product to cart");
+    if (response.status === 404) throw new Error("Produto não encontrado");
+    if (response.status === 401) throw new Error("Não autorizado: token inválido ou ausente");
+    throw new Error("Falha ao adicionar produto ao carrinho");
   }
 
   const data = await response.json();
@@ -26,7 +26,7 @@ export async function addProductToCart(barcode: string): Promise<Product> {
   const addedProduct = cartData.products.find(p => p.code === barcode);
 
   if (!addedProduct) {
-    throw new Error("Product not found in cart after adding");
+    throw new Error("Produto não encontrado no carrinho após adição");
   }
 
   return addedProduct;
@@ -41,8 +41,8 @@ export async function getCart(): Promise<CartResponse> {
 
   if (!response.ok) {
     if (response.status === 404) return { total_items: 0, products: [] };
-    if (response.status === 401) throw new Error("Unauthorized: token inválido ou ausente");
-    throw new Error("Failed to fetch cart");
+    if (response.status === 401) throw new Error("Não autorizado: token inválido ou ausente");
+    throw new Error("Falha ao buscar carrinho");
   }
 
   const data = await response.json();
@@ -57,9 +57,9 @@ export async function removeProductFromCart(barcode: string): Promise<void> {
   });
 
   if (!response.ok) {
-    if (response.status === 404) throw new Error("Product not found in cart");
-    if (response.status === 401) throw new Error("Unauthorized: token inválido ou ausente");
-    throw new Error("Failed to remove product from cart");
+    if (response.status === 404) throw new Error("Produto não encontrado no carrinho");
+    if (response.status === 401) throw new Error("Não autorizado: token inválido ou ausente");
+    throw new Error("Falha ao remover produto do carrinho");
   }
 }
 
@@ -71,7 +71,7 @@ export async function deleteCart(): Promise<void> {
   });
 
   if (!response.ok) {
-    if (response.status === 401) throw new Error("Unauthorized: token inválido ou ausente");
-    throw new Error("Failed to delete cart");
+    if (response.status === 401) throw new Error("Não autorizado: token inválido ou ausente");
+    throw new Error("Falha ao excluir carrinho");
   }
 }

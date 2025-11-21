@@ -68,7 +68,7 @@ export default function SavedCartsPage() {
             <h1 className="text-4xl font-bold text-primary">Smart Shopping Cart</h1>
           </div>
           <p className="text-muted-foreground text-lg">
-            Track your nutrition with every scan
+            Acompanhe sua nutrição a cada leitura
           </p>
         </div>
       </div>
@@ -118,19 +118,19 @@ export default function SavedCartsPage() {
 
                     {/* Código */}
                     <p style={{ marginTop: "4px", color: "#6b7280" }}>
-                      Barcode: {product.code}
+                      Código de barras: {product.code}
                     </p>
 
                     {/* Nutrição dinâmica */}
                     <p style={{ marginTop: "8px", fontSize: "14px", color: "#374151" }}>
                       <span style={{ marginRight: "14px" }}>
-                        Carbs: {carbs}g
+                        Carboidratos: {carbs}g
                       </span>
                       <span style={{ marginRight: "14px" }}>
-                        Protein: {proteins}g
+                        Proteínas: {proteins}g
                       </span>
                       <span style={{ marginRight: "14px" }}>
-                        Fat: {fat}g
+                        Gorduras: {fat}g
                       </span>
                       <strong>{calories} cal</strong>
                     </p>

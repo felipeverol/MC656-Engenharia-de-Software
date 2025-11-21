@@ -20,7 +20,7 @@ export function getAuthHeaders() {
   };
 }
 
-export async function saveCart(cartName: string = "My Cart") {
+export async function saveCart(cartName: string = "Meu Carrinho") {
   console.log("Tentando salvar carrinho...");
   console.log("Headers enviados:", getAuthHeaders());
   const response = await fetch(
@@ -34,10 +34,10 @@ export async function saveCart(cartName: string = "My Cart") {
   );
 
   if (!response.ok) {
-    if (response.status === 404) throw new Error("Cart not found or empty");
+    if (response.status === 404) throw new Error("Carrinho não encontrado ou vazio");
     if (response.status === 401)
-      throw new Error("Unauthorized: token inválido ou ausente");
-    throw new Error("Failed to save cart");
+      throw new Error("Não autorizado: token inválido ou ausente");
+    throw new Error("Falha ao salvar carrinho");
   }
 
   const data = await response.json();

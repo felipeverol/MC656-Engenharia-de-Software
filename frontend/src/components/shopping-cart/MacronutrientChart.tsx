@@ -13,9 +13,9 @@ export default function MacronutrientChart({
   fats,
 }: MacronutrientChartProps) {
   const data = [
-    { name: "Carbohydrates", value: carbs, color: "#3b82f6" },
-    { name: "Proteins", value: proteins, color: "#ef4444" },
-    { name: "Fats", value: fats, color: "#eab308" },
+    { name: "Carboidratos", value: carbs, color: "#3b82f6" },
+    { name: "Proteínas", value: proteins, color: "#ef4444" },
+    { name: "Gorduras", value: fats, color: "#eab308" },
   ].filter((item) => item.value > 0);
 
   const total = carbs + proteins + fats;
@@ -24,11 +24,11 @@ export default function MacronutrientChart({
     return (
       <Card className="shadow-lg border-2">
         <CardHeader>
-          <CardTitle className="text-lg">Macronutrient Balance</CardTitle>
+          <CardTitle className="text-lg">Distribuição de Macronutrientes</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="flex items-center justify-center h-[300px] text-muted-foreground">
-            <p>Add products to see macronutrient distribution</p>
+            <p>Adicione produtos para ver a distribuição de macronutrientes</p>
           </div>
         </CardContent>
       </Card>

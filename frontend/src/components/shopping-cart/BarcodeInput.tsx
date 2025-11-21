@@ -19,8 +19,8 @@ export default function BarcodeInput({ onAddProduct }: BarcodeInputProps) {
     
     if (!barcode.trim()) {
       toast({
-        title: "Invalid Barcode",
-        description: "Please enter a valid barcode",
+        title: "Código de barras inválido",
+        description: "Por favor, insira um código de barras válido",
         variant: "destructive",
       });
       return;
@@ -32,8 +32,8 @@ export default function BarcodeInput({ onAddProduct }: BarcodeInputProps) {
       setBarcode("");
     } catch (error) {
       toast({
-        title: "Error",
-        description: error instanceof Error ? error.message : "Failed to add product",
+        title: "Erro",
+        description: error instanceof Error ? error.message : "Falha ao adicionar produto",
         variant: "destructive",
       });
     } finally {
@@ -47,7 +47,7 @@ export default function BarcodeInput({ onAddProduct }: BarcodeInputProps) {
         <form onSubmit={handleSubmit} className="flex gap-3">
           <Input
             type="text"
-            placeholder="Enter barcode..."
+            placeholder="Digite o código de barras..."
             value={barcode}
             onChange={(e) => setBarcode(e.target.value)}
             disabled={loading}
@@ -61,12 +61,12 @@ export default function BarcodeInput({ onAddProduct }: BarcodeInputProps) {
             {loading ? (
               <>
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                Adding...
+                Adicionando...
               </>
             ) : (
               <>
                 <Plus className="mr-2 h-4 w-4" />
-                Add Product
+                Adicionar Produto
               </>
             )}
           </Button>
