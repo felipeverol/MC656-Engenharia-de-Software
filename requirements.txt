@@ -13,3 +13,5 @@ passlib==1.7.4
 python-multipart
 python-jose
 types-python-jose
+fastapi-mail
+pytest-env
