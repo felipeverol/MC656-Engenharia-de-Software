@@ -1,7 +1,7 @@
 from fastapi import APIRouter, BackgroundTasks, HTTPException
 from pydantic import BaseModel, EmailStr
 from fastapi_mail import FastMail, MessageSchema, ConnectionConfig, MessageType
-from app.config import settings  # <--- Importação nova
+from app.config import settings
 
 router = APIRouter(prefix="/email", tags=["Email"])
 
@@ -10,7 +10,6 @@ class EmailRequest(BaseModel):
     subject: str
     html: str
 
-# Usa as variáveis carregadas pelo Pydantic
 conf = ConnectionConfig(
     MAIL_USERNAME=settings.MAIL_USERNAME,
     MAIL_PASSWORD=settings.MAIL_PASSWORD,
@@ -27,11 +26,15 @@ conf = ConnectionConfig(
 async def send_email(email_data: EmailRequest, background_tasks: BackgroundTasks):
     message = MessageSchema(
         subject=email_data.subject,
-        recipients=[email_data.to],
+        recipients=[str(email_data.to)],
         body=email_data.html,
         subtype=MessageType.html
     )
 
     fm = FastMail(conf)
-    background_tasks.add_task(fm.send_message, message)
-    return {"message": "Email enviado para a fila"}
+    
+    try:
+        background_tasks.add_task(fm.send_message, message)
+        return {"message": "Email enviado para a fila"}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
