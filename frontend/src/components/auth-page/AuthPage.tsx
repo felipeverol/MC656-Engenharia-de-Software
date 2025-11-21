@@ -6,6 +6,7 @@ import { useToast } from "@/components/ui/use-toast";
 import { Toaster } from "@/components/ui/toaster";
 import { LogIn, UserPlus } from "lucide-react";
 import { loginUser, registerUser } from "@/services/authService";
+import { ShoppingBasket } from "lucide-react";
 
 export default function AuthPage() {
   const { toast } = useToast();
@@ -21,7 +22,7 @@ export default function AuthPage() {
     try {
       await loginUser(loginData.email, loginData.password);
       toast({ title: "Login bem-sucedido 🎉", description: "Bem-vindo de volta!" });
-      window.location.href = "/home"; 
+      window.location.href = "/home";
     } catch (error: any) {
       toast({
         title: "Erro no login",
@@ -48,7 +49,19 @@ export default function AuthPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 flex items-center justify-center p-6">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 flex flex-col items-center justify-center p-6">
+      <div className="relative mb-8 flex items-center justify-center">
+        {/* Título centralizado */}
+        <div className="flex flex-col items-center">
+          <div className="flex items-center gap-3">
+            <ShoppingBasket className="h-10 w-10 text-primary" />
+            <h1 className="text-4xl font-bold text-primary">Smart Shopping Cart</h1>
+          </div>
+          <p className="text-muted-foreground text-lg">
+            Track your nutrition with every scan
+          </p>
+        </div>
+      </div>
       <div className="max-w-5xl w-full grid md:grid-cols-2 gap-8">
         {/* LOGIN */}
         <Card className="shadow-xl border-2">

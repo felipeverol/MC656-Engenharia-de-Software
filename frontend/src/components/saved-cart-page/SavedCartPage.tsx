@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { ShoppingBasket } from "lucide-react";
 
 interface Product {
   code: string;
@@ -59,75 +60,87 @@ export default function SavedCartsPage() {
 
   return (
     <div style={{ padding: 20, maxWidth: 700, margin: "0 auto" }}>
+      <div className="relative mb-8 flex items-center justify-center">
+        {/* Título centralizado */}
+        <div className="flex flex-col items-center">
+          <div className="flex items-center gap-3">
+            <ShoppingBasket className="h-10 w-10 text-primary" />
+            <h1 className="text-4xl font-bold text-primary">Smart Shopping Cart</h1>
+          </div>
+          <p className="text-muted-foreground text-lg">
+            Track your nutrition with every scan
+          </p>
+        </div>
+      </div>
       <p className="text-2xl font-bold">Olá, seus carrinhos salvos:</p>
 
       {user.carts.length === 0 && <p>Nenhum carrinho salvo.</p>}
 
       {user.carts.map((cart, index) => (
-    <div
-        key={cart.id}
-        style={{
-        background: "white",
-        padding: "20px",
-        margin: "20px 0",
-        borderRadius: "12px",
-        boxShadow: "0 4px 10px rgba(0,0,0,0.08)",
-        border: "1px solid #e5e7eb",
-        }}
-    >
-    <h2 style={{ marginBottom: "12px", fontSize: "22px" }}>
-      {`Carrinho ${index + 1}`}
-    </h2>
+        <div
+          key={cart.id}
+          style={{
+            background: "white",
+            padding: "20px",
+            margin: "20px 0",
+            borderRadius: "12px",
+            boxShadow: "0 4px 10px rgba(0,0,0,0.08)",
+            border: "1px solid #e5e7eb",
+          }}
+        >
+          <h2 style={{ marginBottom: "12px", fontSize: "22px" }}>
+            {`Carrinho ${index + 1}`}
+          </h2>
 
-    {cart.cart_data.length === 0 ? (
-      <p style={{ opacity: 0.7 }}>(Carrinho vazio)</p>
-    ) : (
-      <div style={{ display: "flex", flexDirection: "column", gap: "15px" }}>
-        {cart.cart_data.map((product) => {
-        const carbs = product.nutriments?.carbohydrates ?? 0;
-        const proteins = product.nutriments?.proteins ?? 0;
-        const fat = product.nutriments?.fat ?? 0;
-        const calories = product.nutriments?.["energy-kcal"] ?? 0;
+          {cart.cart_data.length === 0 ? (
+            <p style={{ opacity: 0.7 }}>(Carrinho vazio)</p>
+          ) : (
+            <div style={{ display: "flex", flexDirection: "column", gap: "15px" }}>
+              {cart.cart_data.map((product) => {
+                const carbs = product.nutriments?.carbohydrates ?? 0;
+                const proteins = product.nutriments?.proteins ?? 0;
+                const fat = product.nutriments?.fat ?? 0;
+                const calories = product.nutriments?.["energy-kcal"] ?? 0;
 
-        return (
-            <div
-            key={product.code}
-            style={{
-                background: "white",
-                borderRadius: "10px",
-                padding: "16px",
-                border: "1px solid #e5e7eb",
-                boxShadow: "0 2px 6px rgba(0,0,0,0.05)",
-            }}
-            >
-            {/* Nome */}
-            <strong style={{ fontSize: "18px" }}>{product.name}</strong>
+                return (
+                  <div
+                    key={product.code}
+                    style={{
+                      background: "white",
+                      borderRadius: "10px",
+                      padding: "16px",
+                      border: "1px solid #e5e7eb",
+                      boxShadow: "0 2px 6px rgba(0,0,0,0.05)",
+                    }}
+                  >
+                    {/* Nome */}
+                    <strong style={{ fontSize: "18px" }}>{product.name}</strong>
 
-            {/* Código */}
-            <p style={{ marginTop: "4px", color: "#6b7280" }}>
-                Barcode: {product.code}
-            </p>
+                    {/* Código */}
+                    <p style={{ marginTop: "4px", color: "#6b7280" }}>
+                      Barcode: {product.code}
+                    </p>
 
-            {/* Nutrição dinâmica */}
-            <p style={{ marginTop: "8px", fontSize: "14px", color: "#374151" }}>
-                <span style={{ marginRight: "14px" }}>
-                Carbs: {carbs}g
-                </span>
-                <span style={{ marginRight: "14px" }}>
-                Protein: {proteins}g
-                </span>
-                <span style={{ marginRight: "14px" }}>
-                Fat: {fat}g
-                </span>
-                <strong>{calories} cal</strong>
-            </p>
+                    {/* Nutrição dinâmica */}
+                    <p style={{ marginTop: "8px", fontSize: "14px", color: "#374151" }}>
+                      <span style={{ marginRight: "14px" }}>
+                        Carbs: {carbs}g
+                      </span>
+                      <span style={{ marginRight: "14px" }}>
+                        Protein: {proteins}g
+                      </span>
+                      <span style={{ marginRight: "14px" }}>
+                        Fat: {fat}g
+                      </span>
+                      <strong>{calories} cal</strong>
+                    </p>
+                  </div>
+                );
+              })}
             </div>
-        );
-        })}
-      </div>
-    )}
-  </div>
-))}
+          )}
+        </div>
+      ))}
 
     </div>
   );
