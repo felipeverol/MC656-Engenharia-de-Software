@@ -145,8 +145,8 @@ export default function ShoppingCart() {
       const product = await addProductToCart(barcode);
       await loadCart();
       toast({
-        title: "Product Added",
-        description: `${product.name} has been added to your cart`,
+        title: "Produto Adicionado",
+        description: `${product.name} foi adicionado ao seu carrinho`,
       });
     } catch (error) {
       throw error;
@@ -160,15 +160,15 @@ export default function ShoppingCart() {
       await loadCart();
       if (item) {
         toast({
-          title: "Product Removed",
-          description: `${item.name} has been removed from your cart`,
+          title: "Produto Removido",
+          description: `${item.name} foi removido do seu carrinho`,
         });
       }
     } catch (error) {
       toast({
-        title: "Error",
+        title: "Erro",
         description:
-          error instanceof Error ? error.message : "Failed to remove product",
+          error instanceof Error ? error.message : "Falha ao remover produto",
         variant: "destructive",
       });
     }
@@ -201,8 +201,8 @@ export default function ShoppingCart() {
   const handleSaveCart = async () => {
     if (hasExceededLimits) {
       toast({
-        title: "Limits Exceeded",
-        description: "Please adjust your cart or limits before saving.",
+        title: "Limites Excedidos",
+        description: "Por favor, ajuste seu carrinho ou limites antes de salvar.",
         variant: "destructive",
       });
       return;
@@ -245,13 +245,13 @@ export default function ShoppingCart() {
         }
 
         toast({
-          title: "Success! ✅",
-          description: `Cart saved and summary sent to ${user.email}`,
+          title: "Sucesso! ✅",
+          description: `Carrinho salvo e resumo enviado para ${user.email}`,
         });
       } else {
         toast({
-          title: "Cart Saved",
-          description: "Cart saved (No email found for user).",
+          title: "Carrinho Salvo",
+          description: "Carrinho salvo (Nenhum e-mail encontrado para o usuário).",
         });
       }
     } catch (error) {
@@ -259,10 +259,10 @@ export default function ShoppingCart() {
       toast({
         title:
           error instanceof Error && error.message.includes("email")
-            ? "Warning"
-            : "Error",
+            ? "Aviso"
+            : "Erro",
         description:
-          error instanceof Error ? error.message : "Something went wrong",
+          error instanceof Error ? error.message : "Algo deu errado",
         variant:
           error instanceof Error && error.message.includes("email")
             ? "default"
@@ -278,7 +278,7 @@ export default function ShoppingCart() {
       <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 flex items-center justify-center">
         <div className="text-center">
           <ShoppingBasket className="h-16 w-16 text-primary mx-auto mb-4 animate-pulse" />
-          <p className="text-lg text-muted-foreground">Loading cart...</p>
+          <p className="text-lg text-muted-foreground">Carregando carrinho...</p>
         </div>
       </div>
     );
@@ -308,7 +308,7 @@ export default function ShoppingCart() {
               </h1>
             </div>
             <p className="text-muted-foreground text-lg">
-              Track your nutrition with every scan
+              Acompanhe sua nutrição a cada leitura
             </p>
           </div>
         </div>
@@ -321,7 +321,7 @@ export default function ShoppingCart() {
           {/* Summary no topo ocupando a largura toda */}
           <div className="mb-8">
             <h2 className="text-2xl font-semibold mb-4 text-primary">
-              Nutritional Summary
+              Resumo Nutricional
             </h2>
 
             <NutritionalSummary
@@ -347,13 +347,13 @@ export default function ShoppingCart() {
               <div className="flex items-center gap-2 mb-6">
                 <Settings2 className="h-6 w-6 text-primary" />
                 <h2 className="text-2xl font-semibold text-primary">
-                  Nutritional Limits
+                  Limites Nutricionais
                 </h2>
               </div>
 
               <div className="space-y-6">
                 <LimitControl
-                  label="Max Calories"
+                  label="Máx Calorias"
                   value={limits.calories}
                   currentTotal={nutritionalTotals.calories}
                   max={4000}
@@ -361,7 +361,7 @@ export default function ShoppingCart() {
                   onChange={(val) => setLimits((prev) => ({ ...prev, calories: val }))}
                 />
                 <LimitControl
-                  label="Max Carbs"
+                  label="Máx Carboidratos"
                   value={limits.carbs}
                   currentTotal={nutritionalTotals.carbs}
                   max={500}
@@ -369,7 +369,7 @@ export default function ShoppingCart() {
                   onChange={(val) => setLimits((prev) => ({ ...prev, carbs: val }))}
                 />
                 <LimitControl
-                  label="Max Proteins"
+                  label="Máx Proteínas"
                   value={limits.proteins}
                   currentTotal={nutritionalTotals.proteins}
                   max={300}
@@ -377,7 +377,7 @@ export default function ShoppingCart() {
                   onChange={(val) => setLimits((prev) => ({ ...prev, proteins: val }))}
                 />
                 <LimitControl
-                  label="Max Fats"
+                  label="Máx Gorduras"
                   value={limits.fats}
                   currentTotal={nutritionalTotals.fats}
                   max={150}
@@ -390,9 +390,9 @@ export default function ShoppingCart() {
                 <div className="mt-6 p-4 bg-red-50 border border-red-200 rounded-lg flex items-start gap-3">
                   <AlertCircle className="h-5 w-5 text-red-600 mt-0.5" />
                   <div>
-                    <p className="font-medium text-red-800">Limits Exceeded</p>
+                    <p className="font-medium text-red-800">Limites Excedidos</p>
                     <p className="text-sm text-red-600">
-                      You cannot save or send email until limits are respected.
+                      Você não pode salvar ou enviar e-mail até que os limites sejam respeitados.
                     </p>
                   </div>
                 </div>
@@ -414,11 +414,11 @@ export default function ShoppingCart() {
               {isSaving ? (
                 <>Enviando...</>
               ) : hasExceededLimits ? (
-                <>Limits Exceeded 🚫</>
+                <>Limites Excedidos 🚫</>
               ) : (
                 <>
                   <Mail className="w-5 h-5" />
-                  Save & Send Email
+                  Salvar e Enviar E-mail
                 </>
               )}
             </button>
@@ -427,10 +427,10 @@ export default function ShoppingCart() {
           {cartItems.length === 0 && (
             <div className="mt-8 text-center text-sm text-muted-foreground bg-card p-6 rounded-lg border-2 shadow-lg">
               <p className="font-medium mb-2">
-                Scan any product barcode to get started!
+                Escaneie qualquer código de barras para começar!
               </p>
               <p className="text-xs">
-                The app will fetch product data from Open Food Facts
+                O app buscará dados do produto no Open Food Facts
               </p>
             </div>
           )}

@@ -16,7 +16,7 @@ export default function NutritionalSummary({
 }: NutritionalSummaryProps) {
   const stats = [
     {
-      label: "Carbohydrates",
+      label: "Carboidratos",
       value: totalCarbs,
       unit: "g",
       icon: Apple,
@@ -24,7 +24,7 @@ export default function NutritionalSummary({
       bgColor: "bg-blue-50",
     },
     {
-      label: "Proteins",
+      label: "Proteínas",
       value: totalProteins,
       unit: "g",
       icon: Beef,
@@ -32,7 +32,7 @@ export default function NutritionalSummary({
       bgColor: "bg-red-50",
     },
     {
-      label: "Fats",
+      label: "Gorduras",
       value: totalFats,
       unit: "g",
       icon: Droplet,
@@ -40,7 +40,7 @@ export default function NutritionalSummary({
       bgColor: "bg-yellow-50",
     },
     {
-      label: "Calories",
+      label: "Calorias",
       value: totalCalories,
       unit: "kcal",
       icon: Flame,

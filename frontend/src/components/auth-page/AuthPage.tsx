@@ -58,7 +58,7 @@ export default function AuthPage() {
             <h1 className="text-4xl font-bold text-primary">Smart Shopping Cart</h1>
           </div>
           <p className="text-muted-foreground text-lg">
-            Track your nutrition with every scan
+            Acompanhe sua nutrição a cada leitura
           </p>
         </div>
       </div>
