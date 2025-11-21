@@ -114,15 +114,28 @@ export default function ShoppingCart() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 p-4 md:p-8">
       <div className="max-w-7xl mx-auto">
+
         {/* Header */}
-        <div className="mb-8 text-center">
-          <div className="flex items-center justify-center gap-3 mb-3">
-            <ShoppingBasket className="h-10 w-10 text-primary" />
-            <h1 className="text-4xl font-bold text-primary">Smart Shopping Cart</h1>
+        <div className="relative mb-8 flex items-center justify-center">
+          
+          {/* Botão no canto superior direito */}
+          <button
+            onClick={() => (window.location.href = "http://localhost:5173/saved-carts")}
+            className="absolute right-0 px-5 py-2 bg-primary text-white rounded-xl font-semibold shadow hover:bg-primary/90 transition"
+          > Ver meus carrinhos salvos
+          </button>
+
+          {/* Título centralizado */}
+          <div className="flex flex-col items-center">
+            <div className="flex items-center gap-3">
+              <ShoppingBasket className="h-10 w-10 text-primary" />
+              <h1 className="text-4xl font-bold text-primary">Smart Shopping Cart</h1>
+            </div>
+            <p className="text-muted-foreground text-lg">
+              Track your nutrition with every scan
+            </p>
           </div>
-          <p className="text-muted-foreground text-lg">
-            Track your nutrition with every scan
-          </p>
+
         </div>
 
         {/* Main Content */}

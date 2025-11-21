@@ -2,6 +2,7 @@ import { Suspense } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import ShoppingCart from "./components/shopping-cart/ShoppingCart";
 import AuthPage from "./components/auth-page/AuthPage";
+import SavedCartPage from "./components/saved-cart-page/SavedCartPage";
 
 function isTokenExpired(token: string): boolean {
   try {
@@ -36,6 +37,16 @@ export default function App() {
           element={
             <PrivateRoute>
               <ShoppingCart />
+            </PrivateRoute>
+          }
+        />
+
+        {/* Página de salvamento do carrinho */}
+        <Route
+          path="/saved-carts"
+          element={
+            <PrivateRoute>
+              <SavedCartPage />
             </PrivateRoute>
           }
         />
